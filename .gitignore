@@ -12,6 +12,8 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+**/wwwroot/dist/
+**/ClientApp/dist/
 
 # Build results
 [Dd]ebug/

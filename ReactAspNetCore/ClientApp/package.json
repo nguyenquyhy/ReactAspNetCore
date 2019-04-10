@@ -1,0 +1,20 @@
+{
+  "author": "Nguyen Quy Hy",
+  "name": "reactaspnetcore",
+  "description": "This my starting template for using React with ASP.NET Core.",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/react": "^16.8.13",
+    "@types/react-dom": "^16.8.4",
+    "@types/webpack-env": "^1.13.9",
+    "aspnet-webpack": "^3.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "ts-loader": "^5.3.3",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.5.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-middleware": "^3.6.2"
+  }
+}
