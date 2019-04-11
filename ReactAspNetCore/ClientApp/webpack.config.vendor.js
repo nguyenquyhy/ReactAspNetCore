@@ -37,7 +37,12 @@ module.exports = () => {
         output: { path: path.join(__dirname, clientOutputDir) },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: [MiniCssExtractPlugin.loader, 'css-loader'] }
+                {
+                    test: /\.css(\?|$)/, use: [
+                        { loader: MiniCssExtractPlugin.loader, options: { publicPath: './' } },
+                        'css-loader'
+                    ]
+                }
             ]
         },
         plugins: [

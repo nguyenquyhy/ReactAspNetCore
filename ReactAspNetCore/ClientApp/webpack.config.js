@@ -2,6 +2,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = () => {
     const sharedConfig = () => ({
@@ -35,7 +36,21 @@ module.exports = () => {
         output: {
             path: path.join(__dirname, clientOutputDir)
         },
+        module: {
+            rules: [
+                {
+                    test: /\.css(\?|$)/, use: [
+                        { loader: MiniCssExtractPlugin.loader, options: { publicPath: './' } },
+                        'css-loader'
+                    ]
+                }
+            ]
+        },
         plugins: [
+            new MiniCssExtractPlugin({
+                filename: "[name].css",
+                chunkFilename: "[id].css"
+            }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require(path.join(clientOutputDir, 'vendor-manifest.json'))
