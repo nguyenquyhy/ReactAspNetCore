@@ -7,6 +7,7 @@
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
     "@types/webpack-env": "^1.13.9",
+    "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -15,6 +16,7 @@
     "typescript": "^3.5.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-middleware": "^3.6.2"
+    "webpack-dev-middleware": "^3.6.2",
+    "webpack-merge": "^4.2.1"
   }
 }

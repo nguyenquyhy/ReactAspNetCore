@@ -3,8 +3,9 @@
 ### TODO
 
 - [X] Basic React rendering
-- [ ] Server Pre-rendering
+- [X] Server Pre-rendering
 - [ ] Vendor bundle
+- [ ] Production bundle
 - [ ] Webpack plugins
   - [ ] Devtool map
   - [ ] Split chunk

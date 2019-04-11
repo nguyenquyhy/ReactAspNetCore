@@ -1,16 +1,12 @@
 ﻿const path = require('path');
+const merge = require('webpack-merge');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = () => {
-    const clientOutputDir = '../wwwroot/dist';
-    const clientConfig = {
-        entry: {
-            app: './boot-client.tsx'
-        },
+    const sharedConfig = () => ({
         output: {
             filename: '[name].js',
-            publicPath: '/dist/',
-            path: path.join(__dirname, clientOutputDir)
+            publicPath: '/dist/'
         },
         module: {
             rules: [
@@ -28,7 +24,28 @@ module.exports = () => {
             ]
         },
         mode: "development"
-    };
+    });
 
-    return [clientConfig];
+    const clientOutputDir = '../wwwroot/dist';
+    const clientConfig = merge(sharedConfig(), {
+        entry: {
+            app: './boot-client.tsx'
+        },
+        output: {
+            path: path.join(__dirname, clientOutputDir)
+        }
+    });
+
+    // Configuration for server-side (prerendering) bundle suitable for running in Node
+    const serverConfig = merge(sharedConfig(), {
+        resolve: { mainFields: ['main'] },
+        entry: { 'main-server': './boot-server.tsx' },
+        output: {
+            libraryTarget: 'commonjs',
+            path: path.join(__dirname, './dist')
+        },
+        target: 'node'
+    });
+
+    return [clientConfig, serverConfig];
 };
