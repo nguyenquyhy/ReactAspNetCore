@@ -15,7 +15,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
   </ItemGroup>
   
-  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" !Exists('wwwroot\dist') ">
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec WorkingDirectory="ClientApp" Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
@@ -26,11 +26,24 @@
          a different machine, so rebuild them if not already present. -->
     <Message Importance="high" Text="Performing first-run Webpack build..." />
     <Exec WorkingDirectory="ClientApp" Command="npm install" />
-    <Exec WorkingDirectory="ClientApp" Command="npm run build-vendor" />
-    <Exec WorkingDirectory="ClientApp" Command="npm run build-app" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-vendor-dev" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-app-dev" />
   </Target>
 
-  <Target Name="RebuildWebpack" BeforeTargets="Rebuild">
+  <Target Name="RebuildWebpack" BeforeTargets="Rebuild" Condition=" '$(Configuration)' == 'Debug' ">
+    <!-- Ensure Node.js is installed -->
+    <Exec WorkingDirectory="ClientApp" Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <Message Importance="high" Text="Performing Webpack re-build..." />
+    <Exec WorkingDirectory="ClientApp" Command="npm install" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-vendor-dev" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-app-dev" />
+  </Target>
+
+  <Target Name="RebuildWebpackRelease" BeforeTargets="Rebuild" Condition=" '$(Configuration)' == 'Release' ">
     <!-- Ensure Node.js is installed -->
     <Exec WorkingDirectory="ClientApp" Command="node --version" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
@@ -41,5 +54,21 @@
     <Exec WorkingDirectory="ClientApp" Command="npm install" />
     <Exec WorkingDirectory="ClientApp" Command="npm run build-vendor" />
     <Exec WorkingDirectory="ClientApp" Command="npm run build-app" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="ClientApp" Command="npm install" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-vendor" />
+    <Exec WorkingDirectory="ClientApp" Command="npm run build-app" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
   </Target>
 </Project>

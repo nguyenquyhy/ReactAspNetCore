@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using System.IO;
 
 namespace ReactAspNetCore
@@ -43,7 +44,14 @@ namespace ReactAspNetCore
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 31536000;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "immutable,public,max-age=" + durationInSeconds;
+                }
+            });
 
             app.UseMvc(routes =>
             {

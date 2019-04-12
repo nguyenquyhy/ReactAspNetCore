@@ -6,10 +6,11 @@
 - [X] Server Pre-rendering
 - [X] Vendor bundle
 - [X] Compile CSS with Webpack
-- [ ] Production bundle
+- [X] Production bundle & publishing
 - [ ] Hot module reload
 - [ ] Webpack plugins
   - [ ] Devtool map
   - [ ] Split chunk
   - [ ] Minified
+- [ ] CDN for common packages
 - [ ] Lighthouse

@@ -2,6 +2,8 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = () => {
     const sharedConfig = {
@@ -26,9 +28,6 @@ module.exports = () => {
         },
         plugins: [
             //new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, require.resolve('node-noop')), // Workaround for https://github.com/andris9/encoding/issues/16
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': '"development"'
-            })
         ]
     };
 
@@ -54,7 +53,10 @@ module.exports = () => {
                 path: path.join(__dirname, clientOutputDir, '[name]-manifest.json'),
                 name: '[name]_[hash]'
             })
-        ]
+        ],
+        optimization: {
+            minimizer: [new TerserJSPlugin({ extractComments: true }), new OptimizeCSSAssetsPlugin({})]
+        }
     });
 
     const serverConfig = merge(sharedConfig, {

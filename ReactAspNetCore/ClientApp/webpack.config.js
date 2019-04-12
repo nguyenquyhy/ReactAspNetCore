@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = () => {
     const sharedConfig = () => ({
@@ -55,7 +57,10 @@ module.exports = () => {
                 context: __dirname,
                 manifest: require(path.join(clientOutputDir, 'vendor-manifest.json'))
             })
-        ]
+        ],
+        optimization: {
+            minimizer: [new TerserJSPlugin({ extractComments: true }), new OptimizeCSSAssetsPlugin({})]
+        }
     });
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
