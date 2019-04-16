@@ -14,7 +14,7 @@ The reasonale and some analysis of this template is in my blog post https://www.
 - [X] Compile CSS with Webpack
 - [X] Production bundle & publishing
 - [X] Hot module replacement
-  - [ ] React hot loader
+  - [X] React hot loader
 - [ ] Webpack plugins
   - [ ] Devtool map
   - [ ] Split chunk

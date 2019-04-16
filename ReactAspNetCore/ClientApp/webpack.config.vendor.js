@@ -9,7 +9,12 @@ module.exports = () => {
     const sharedConfig = {
         mode: "development",
         stats: { modules: false },
-        resolve: { extensions: ['.js'] },
+        resolve: {
+            extensions: ['.js'],
+            alias: {
+                'react-dom': '@hot-loader/react-dom'
+            }
+        },
         module: {
             rules: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
@@ -18,7 +23,8 @@ module.exports = () => {
         entry: {
             vendor: [
                 'react',
-                'react-dom'
+                'react-dom',
+                '@hot-loader/react-dom'
             ]
         },
         output: {

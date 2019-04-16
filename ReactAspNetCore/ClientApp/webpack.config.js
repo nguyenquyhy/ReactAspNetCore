@@ -25,7 +25,10 @@ module.exports = () => {
             extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json'],
             plugins: [
                 new TsconfigPathsPlugin({ configFile: 'tsconfig.json' })
-            ]
+            ],
+            alias: {
+                'react-dom': '@hot-loader/react-dom'
+            }
         },
         mode: "development"
     });

@@ -1,9 +1,12 @@
-﻿import * as React from 'react';
+﻿import { hot } from 'react-hot-loader/root'
+import * as React from 'react';
 import Counter from 'components/Counter';
 
-export default () => (
+const Layout = () => (
     <React.Fragment>
         <h2>Welcome to React</h2>
         <Counter />
     </React.Fragment>
 )
+
+export default hot(Layout);
