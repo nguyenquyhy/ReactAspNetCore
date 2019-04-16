@@ -32,6 +32,7 @@ namespace ReactAspNetCore
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
+                    HotModuleReplacement = true,
                     // Must be absolute path to fix an issue with node module resolution
                     ProjectPath = Path.Combine(env.ContentRootPath, "ClientApp")
                 });
