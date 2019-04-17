@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = () => {
+module.exports = (_, argv) => {
     const sharedConfig = () => ({
         output: {
             filename: '[name].js',
@@ -32,7 +32,7 @@ module.exports = () => {
         },
         mode: "development"
     });
-
+    
     const clientOutputDir = '../wwwroot/dist';
     const clientConfig = merge(sharedConfig(), {
         entry: {
@@ -62,8 +62,9 @@ module.exports = () => {
             })
         ],
         optimization: {
-            minimizer: [new TerserJSPlugin({ extractComments: true }), new OptimizeCSSAssetsPlugin({})]
-        }
+            minimizer: [new TerserJSPlugin({ extractComments: true, sourceMap: true }), new OptimizeCSSAssetsPlugin({ sourceMap: true })]
+        },
+        devtool: argv && argv.mode === 'production' ? 'source-map' : 'eval-source-map'
     });
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node

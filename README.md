@@ -13,11 +13,16 @@ The reasonale and some analysis of this template is in my blog post https://www.
 - [X] Vendor bundle
 - [X] Compile CSS with Webpack
 - [X] Production bundle & publishing
+  - [ ] Split chunk
 - [X] Hot module replacement
   - [X] React hot loader
-- [ ] Webpack plugins
-  - [ ] Devtool map
-  - [ ] Split chunk
-  - [ ] Minified
+- [X] Devtool source map
+- [ ] Tests
 - [ ] CDN for common packages
 - [ ] Lighthouse
+
+
+### Some Considerations
+
+- Server prerendering has it benefits but might not be suitable for your application. You might want to disable it by removing `asp-prerender-module="ClientApp/dist/main-server"` in Index.cshtml.
+- This template generates & publishes .map files for production build. You might want to disable it by changing `'source-map'` in webpack.config.js to a more suitable option for your need.
