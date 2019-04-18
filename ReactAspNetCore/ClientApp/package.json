@@ -5,6 +5,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.6",
+    "@testing-library/react": "^8.0.1",
+    "@types/jest": "^24.0.11",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
     "@types/webpack-env": "^1.13.9",
@@ -12,11 +14,14 @@
     "aspnet-webpack": "^3.0.0",
     "aspnet-webpack-react": "^4.0.0",
     "css-loader": "^2.1.1",
+    "jest": "^24.7.1",
+    "jest-dom": "^3.1.3",
     "mini-css-extract-plugin": "^0.6.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.4",
+    "ts-jest": "^24.0.2",
     "ts-loader": "^5.3.3",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.5.1",
@@ -30,6 +35,7 @@
     "build-app-dev": "webpack-cli --mode=development",
     "build-vendor-dev": "webpack-cli --config webpack.config.vendor.js --mode=development",
     "build-app": "webpack-cli --mode=production",
-    "build-vendor": "webpack-cli --config webpack.config.vendor.js --mode=production"
+    "build-vendor": "webpack-cli --config webpack.config.vendor.js --mode=production",
+    "test": "jest"
   }
 }

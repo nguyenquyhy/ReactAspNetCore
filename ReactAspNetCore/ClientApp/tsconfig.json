@@ -6,7 +6,7 @@
     "target": "es2015",
     "jsx": "react",
     "lib": [ "es6", "dom" ],
-    "types": [ "webpack-env" ],
+    "types": [ "webpack-env", "jest" ],
     "sourceMap": true
   }
 }

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter Tests reacts to button clicks 1`] = `
+<DocumentFragment>
+  <button>
+    Increase
+  </button>
+  <div>
+    Current count: 0
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Counter Tests reacts to button clicks 2`] = `
+<DocumentFragment>
+  <button>
+    Increase
+  </button>
+  <div>
+    Current count: 1
+  </div>
+</DocumentFragment>
+`;

@@ -17,7 +17,7 @@ The reasonale and some analysis of this template is in my blog post https://www.
 - [X] Hot module replacement
   - [X] React hot loader
 - [X] Devtool source map
-- [ ] Tests
+- [X] Tests
 - [ ] CDN for common packages
 - [ ] Lighthouse
 
