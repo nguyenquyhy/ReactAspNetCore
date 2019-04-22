@@ -18,6 +18,7 @@ The reasonale and some analysis of this template is in my blog post https://www.
   - [X] React hot loader
 - [X] Devtool source map
 - [X] Tests
+- [X] ES5 for IE compatibility
 - [ ] CDN for common packages
 - [ ] Lighthouse
 

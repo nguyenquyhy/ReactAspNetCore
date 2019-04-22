@@ -4,6 +4,7 @@
   "description": "This my starting template for using React with ASP.NET Core.",
   "version": "1.0.0",
   "devDependencies": {
+    "@babel/polyfill": "^7.4.3",
     "@hot-loader/react-dom": "^16.8.6",
     "@testing-library/react": "^8.0.1",
     "@types/jest": "^24.0.11",
