@@ -5,6 +5,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (_, argv) => {
     const sharedConfig = () => ({
@@ -32,7 +33,7 @@ module.exports = (_, argv) => {
         },
         mode: "development"
     });
-    
+
     const clientOutputDir = '../wwwroot/dist';
     const clientConfig = merge(sharedConfig(), {
         entry: {
@@ -60,7 +61,13 @@ module.exports = (_, argv) => {
                 context: __dirname,
                 manifest: require(path.join(clientOutputDir, 'vendor-manifest.json'))
             })
-        ],
+        ].concat(argv && argv.mode === 'production' ? [
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                generateStatsFile: false,
+                reportFilename: path.join(__dirname, './dist/client-bundle-analyzer', 'app-bundle-report.html')
+            })
+        ] : []),
         optimization: {
             minimizer: [new TerserJSPlugin({ extractComments: true, sourceMap: true }), new OptimizeCSSAssetsPlugin({ sourceMap: true })]
         },

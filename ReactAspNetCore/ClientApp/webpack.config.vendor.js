@@ -4,8 +4,9 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-module.exports = () => {
+module.exports = (_, argv) => {
     const sharedConfig = {
         mode: "development",
         stats: { modules: false },
@@ -60,7 +61,13 @@ module.exports = () => {
                 path: path.join(__dirname, clientOutputDir, '[name]-manifest.json'),
                 name: '[name]_[hash]'
             })
-        ],
+        ].concat(argv && argv.mode === 'production' ? [
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                generateStatsFile: false,
+                reportFilename: path.join(__dirname, './dist/client-bundle-analyzer', 'vendor-bundle-report.html')
+            })
+        ] : []),
         optimization: {
             minimizer: [new TerserJSPlugin({ extractComments: true }), new OptimizeCSSAssetsPlugin({})]
         }
