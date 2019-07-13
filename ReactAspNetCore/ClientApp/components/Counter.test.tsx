@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Counter from './Counter';
-import { render, fireEvent, cleanup, waitForElement, getByText } from '@testing-library/react'
-import 'jest-dom/extend-expect';
+import { render, fireEvent, cleanup } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
 
 // automatically unmount and cleanup DOM after the test is finished.
 afterEach(cleanup)
